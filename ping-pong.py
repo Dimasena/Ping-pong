@@ -50,6 +50,23 @@ def game_over():
     screen.blit(text_end, text_rect)
 
 
+def ai():
+    global opponent_speed
+    if ball.top < opponent.top:
+        opponent_speed -= 7
+    if ball.bottom > opponent.bottom:
+        opponent_speed += 7
+
+
+def stop():
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= 960:
+        player.bottom = 960
+    if opponent.bottom <= 0:
+        opponent.bottom = 0
+    if opponent.bottom >= 960:
+        opponent.bottom= 960
 
 p.init()
 clock = p.time.Clock()
@@ -101,17 +118,6 @@ while running:
             if event.key == p.K_s:
                 player_speed -= 7
 
-        if event.type == p.KEYDOWN:
-            if event.key == p.K_UP:
-                opponent_speed -= 7
-            if event.key == p.K_DOWN:
-                opponent_speed += 7
-
-        if event.type == p.KEYUP:
-            if event.key == p.K_UP:
-                opponent_speed += 7
-            if event.key == p.K_DOWN:
-                opponent_speed -= 7
 
         if event.type == p.KEYDOWN:
             if event.key == p.K_SPACE and game_is_over == True:
@@ -125,7 +131,8 @@ while running:
 
     screen.fill(bg_color)
     ball_animation()
-
+    ai()
+    stop()
 
     # https://w3schools.com/colorpicker
 
