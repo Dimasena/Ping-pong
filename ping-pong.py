@@ -1,5 +1,4 @@
-import random
-
+# import random
 import pygame as p
 
 
@@ -19,6 +18,12 @@ def ball_animation():
 
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
+        if ball_speed_x < 0:
+            ball_speed_y -= 2
+            ball_speed_x -= 2
+        elif ball_speed_x > 0:
+            ball_speed_y += 2
+            ball_speed_x += 2
 
 
 def ball_start():
@@ -50,6 +55,14 @@ def game_over():
     screen.blit(text_end, text_rect)
 
 
+def ai():
+    global opponent_speed
+    if ball.top > opponent.top:
+        opponent_speed += 7
+    if ball.bottom < opponent.bottom:
+        opponent_speed -= 7
+
+
 def stop():
     if player.bottom > 960:
         player.bottom = 960
@@ -59,6 +72,12 @@ def stop():
         opponent.bottom = 960
     if opponent.top < 0:
         opponent.top = 0
+
+
+p.mixer.init()
+soundtrack = p.mixer.Sound('123.wav')
+soundtrack.set_volume(0.5)
+soundtrack.play(1)
 
 
 p.init()
@@ -111,17 +130,7 @@ while running:
             if event.key == p.K_s:
                 player_speed -= 7
 
-        if event.type == p.KEYDOWN:
-            if event.key == p.K_UP:
-                opponent_speed -= 7
-            if event.key == p.K_DOWN:
-                opponent_speed += 7
 
-        if event.type == p.KEYUP:
-            if event.key == p.K_UP:
-                opponent_speed += 7
-            if event.key == p.K_DOWN:
-                opponent_speed -= 7
 
         if event.type == p.KEYDOWN:
             if event.key == p.K_SPACE and game_is_over == True:
@@ -130,12 +139,14 @@ while running:
                 ball_speed_x = random.choice([-7, 7])
                 score_one, score_two = 0, 0
 
+    ai()
+    stop()
     player.y += player_speed
     opponent.y += opponent_speed
 
     screen.fill(bg_color)
     ball_animation()
-    stop()
+
 
     # https://w3schools.com/colorpicker
 
