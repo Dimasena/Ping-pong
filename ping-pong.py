@@ -19,7 +19,7 @@ def ball_animation():
 
     if ball.colliderect(player) or ball.colliderect(opponent):
         ball_speed_x *= -1
-
+        soundtrack.play()
 
 def ball_start():
     global score_one, score_two, win_text, game_is_over
@@ -68,6 +68,8 @@ def stop():
     if opponent.bottom >= 960:
         opponent.bottom= 960
 
+
+
 p.init()
 clock = p.time.Clock()
 
@@ -75,6 +77,10 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 960
 screen = p.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 p.display.set_caption('ping-pong')
+
+
+soundtrack = p.mixer.Sound('123.mp3')
+soundtrack.set_volume(0.5)
 
 
 # Цвета
