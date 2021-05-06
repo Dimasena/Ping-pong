@@ -1,4 +1,4 @@
-# import random
+import random
 import pygame as p
 
 
@@ -24,7 +24,7 @@ def ball_animation():
         elif ball_speed_x > 0:
             ball_speed_y += 2
             ball_speed_x += 2
-
+        soundtrack.play()
 
 def ball_start():
     global score_one, score_two, win_text, game_is_over
@@ -74,10 +74,7 @@ def stop():
         opponent.top = 0
 
 
-p.mixer.init()
-soundtrack = p.mixer.Sound('123.wav')
-soundtrack.set_volume(0.5)
-soundtrack.play(1)
+
 
 
 p.init()
@@ -87,6 +84,9 @@ SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 960
 screen = p.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 p.display.set_caption('ping-pong')
+
+soundtrack = p.mixer.Sound('123.mp3')
+soundtrack.set_volume(0.5)
 
 
 # Цвета
