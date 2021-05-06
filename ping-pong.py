@@ -50,6 +50,16 @@ def game_over():
     screen.blit(text_end, text_rect)
 
 
+def stop():
+    if player.bottom > 960:
+        player.bottom = 960
+    if player.top < 0:
+        player.top = 0
+    if opponent.bottom > 960:
+        opponent.bottom = 960
+    if opponent.top < 0:
+        opponent.top = 0
+
 
 p.init()
 clock = p.time.Clock()
@@ -125,7 +135,7 @@ while running:
 
     screen.fill(bg_color)
     ball_animation()
-
+    stop()
 
     # https://w3schools.com/colorpicker
 
