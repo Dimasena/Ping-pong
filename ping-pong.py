@@ -64,14 +64,14 @@ def ai():
 
 
 def stop():
-    if player.bottom > 960:
-        player.bottom = 960
-    if player.top < 0:
+    if player.top <= 0:
         player.top = 0
-    if opponent.bottom > 960:
-        opponent.bottom = 960
-    if opponent.top < 0:
-        opponent.top = 0
+    if player.bottom >= 960:
+        player.bottom = 960
+    if opponent.bottom <= 0:
+        opponent.bottom = 0
+    if opponent.bottom >= 960:
+        opponent.bottom= 960
 
 
 
